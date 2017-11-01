@@ -10,14 +10,14 @@ SDK is required.
    a) To install on a workload execute: sudo pip install cloudpassage  
    b) To create a deployment package for lambda execute the following:  
   
-   sudo pip install cloudpassage -t <path to directory where index.py is  
+   sudo pip install cloudpassage -t \<path to directory where index.py is  
    located>
 
 2) To run the job as a lambda function install the following packages:  
   
-    sudo pip install requests -t <path to directory where index.py is  
+    sudo pip install requests -t \<path to directory where index.py is  
     located>  
-    sudo pip install yaml -t <path to directory where index.py is  
+    sudo pip install yaml -t \<path to directory where index.py is  
     located>
     
 3) Halo API keys are required for authentication to the SDK.  
