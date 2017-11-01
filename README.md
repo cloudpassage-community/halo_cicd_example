@@ -10,7 +10,7 @@ SDK is required.
    a) To install on a workload execute: sudo pip install cloudpassage  
    b) To create a deployment package for lambda execute the following:  
   
-   sudo pip install cloudpassage -t \<path to directory where index.py is  
+   sudo pip install cloudpassage -t \<path to directory where index.py is 
    located>
 
 2) To run the job as a lambda function install the following packages:  
@@ -64,7 +64,7 @@ SDK is required.
        
  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b) In your lambda function configuration:
    
-   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) For "Code entry type" choose "Upload a .ZIP file"  
+   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1) For "Code entry type" choose "Upload a .ZIP file" and upload halo_cicd_lambda.zip  
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2) For Runtime choose "Python 2.7"  
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3) For Handler enter "index.handler"  
    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4) Enter the Halo SDK environment variables in the "Environment Variables"
