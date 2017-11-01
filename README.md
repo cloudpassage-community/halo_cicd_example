@@ -1,5 +1,8 @@
 # Halo CICD Example
-Sample code for a CI job or lambda function
+Sample code for a CI job or lambda function.  The code will list all servers
+in the Halo account and use the first one.  It will do an "Software
+Vulnerability Assessment" and a "Configuration Security Monitoring (CSM)" scan.
+If there is no CSM policy on the group the server is in it will let you know. 
 
 Pre-Requisites
 -
