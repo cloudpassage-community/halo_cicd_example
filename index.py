@@ -96,22 +96,6 @@ def handler(event, context):
         cp_scan = cloudpassage.Scan(cp_session)
 
         # scan workload
-        scan_type = "sva"
-        response = cp_scan.initiate_scan(server_id, scan_type)
-
-        process_scan_request(cp_session, server_id, response)
-
-        # once scan is complete check for critical findings
-        results = cp_scan.last_scan_results(server_id, scan_type)
-
-        # are there critical findings and if so what are they
-        scan_critical_findings = check_for_critical_findings(results)
-        critical_findings_to_report = \
-            get_critical_findings(results, critical_findings_to_report)
-
-        critical_findings = scan_critical_findings
-
-        # scan workload
         scan_type = "csm"
 
         response = cp_scan.initiate_scan(server_id, scan_type)
