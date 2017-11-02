@@ -1,5 +1,7 @@
+import sys
 import time
 import cloudpassage
+
 
 # get a CloudPassage session object
 def get_cloud_passage_session():
@@ -8,9 +10,11 @@ def get_cloud_passage_session():
     apiCredentials = cloudpassage.ApiKeyManager()
 
     # create an API connection object
-    cp_session = cloudpassage.HaloSession(apiCredentials.key_id, apiCredentials.secret_key)
+    cp_session = cloudpassage.HaloSession(apiCredentials.key_id,
+                                          apiCredentials.secret_key)
 
     return cp_session
+
 
 # checks the status of an API command
 def check_status(cp_server, server_id, command_id):
@@ -18,9 +22,11 @@ def check_status(cp_server, server_id, command_id):
     delay = 10
 
     time.sleep(delay)
-    response = cloudpassage.Server.command_details(cp_server, server_id, command_id)
+    response = cloudpassage.Server.command_details(cp_server, server_id,
+                                                   command_id)
 
     return response
+
 
 # monitors status of a request
 def process_scan_request(cp_session, server_id, response):
@@ -37,10 +43,13 @@ def process_scan_request(cp_session, server_id, response):
 
     # get command ID then check until command finishes
     command_id = response["id"]
-    response = cloudpassage.Server.command_details(cp_server, server_id, command_id)
+    response = cloudpassage.Server.command_details(cp_server, server_id,
+                                                   command_id)
 
-    while response[STATUS] == QUEUED or response[STATUS] == PENDING or response[STATUS] == STARTED:
-        print 'Command status is %s... waiting for next heartbeat...' % response[STATUS]
+    while response[STATUS] == QUEUED or response[STATUS] == PENDING \
+            or response[STATUS] == STARTED:
+        print 'Command status is %s... waiting for next heartbeat...'\
+              % response[STATUS]
         response = check_status(cp_server, server_id, command_id)
 
     if response[STATUS] == FAILED:
@@ -50,11 +59,13 @@ def process_scan_request(cp_session, server_id, response):
 
     return ret_val
 
+
 # checks if there are any critical findings in the scan
 def check_for_critical_findings(results):
     critical_findings = results["scan"]["critical_findings_count"]
 
     return critical_findings
+
 
 # print out critical findings
 def get_critical_findings(results, critical_findings_to_report):
@@ -68,6 +79,7 @@ def get_critical_findings(results, critical_findings_to_report):
                 critical_findings_to_report.append(result["rule_name"])
 
     return critical_findings_to_report
+
 
 def main():
     FIRST = 0
@@ -91,6 +103,22 @@ def main():
     cp_scan = cloudpassage.Scan(cp_session)
 
     # scan workload
+    scan_type = "sva"
+    response = cp_scan.initiate_scan(server_id, scan_type)
+
+    process_scan_request(cp_session, server_id, response)
+
+    # once scan is complete check for critical findings
+    results = cp_scan.last_scan_results(server_id, scan_type)
+
+    # are there critical findings and if so what are they
+    scan_critical_findings = check_for_critical_findings(results)
+    critical_findings_to_report = \
+        get_critical_findings(results, critical_findings_to_report)
+
+    critical_findings = scan_critical_findings
+
+    # scan workload
     scan_type = "csm"
 
     response = cp_scan.initiate_scan(server_id, scan_type)
@@ -108,9 +136,11 @@ def main():
 
     if critical_findings != 0:
         print "\n%s\n" % critical_findings_to_report
-        raise ValueError('Scan failed with %d critical findings' % critical_findings)
+        raise ValueError('Scan failed with %d critical findings'
+                         % critical_findings)
     else:
         print "\nNo critical findings found.\n"
+
 
 if __name__ == "__main__":
     try:
